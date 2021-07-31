@@ -163,13 +163,13 @@ def get_can_signals(CP):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("EPB_STATE", "EPB_STATUS", 0)]
     checks += [("EPB_STATUS", 50)]
-  elif CP.carFingerprint in (CAR.ACCORD_NIDEC, CAR.ACCORD_NIDEC_HYBRID, CAE.ACURA_MDX):
+  elif CP.carFingerprint in (CAR.ACCORD_NIDEC, CAR.ACURA_MDX, CAR.ACCORD_NIDEC_HYBRID):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("CAR_GAS", "GAS_PEDAL", 0)]
     checks += [("GAS_PEDAL", 100)]
-										   
-											  
-											
+			 
+			 
+		   
 
   # add gas interceptor reading if we are using it
   if CP.enableGasInterceptor:
@@ -228,7 +228,7 @@ class CarState(CarStateBase):
 elif self.CP.carFingerprint == CAR.ACURA_MDX:
       ret.doorOpen = any([cp.vl["DOORS_STATUS"]['DOOR_OPEN_FL'], cp.vl["DOORS_STATUS"]['DOOR_OPEN_FR'],
                           cp.vl["DOORS_STATUS"]['DOOR_OPEN_RL'], cp.vl["DOORS_STATUS"]['DOOR_OPEN_RR']])
-      ret.standstill = not cp.vl["STANDSTILL"]['WHEELS_MOVING']     												 																
+      ret.standstill = not cp.vl["STANDSTILL"]['WHEELS_MOVING']   											 																							 
     else:
       ret.standstill = not cp.vl["STANDSTILL"]['WHEELS_MOVING']
       ret.doorOpen = any([cp.vl["DOORS_STATUS"]['DOOR_OPEN_FL'], cp.vl["DOORS_STATUS"]['DOOR_OPEN_FR'],
@@ -308,8 +308,8 @@ elif self.CP.carFingerprint == CAR.ACURA_MDX:
       ret.steeringTorqueEps = cp.vl["STEER_MOTOR_TORQUE"]['MOTOR_TORQUE']   
     ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD[self.CP.carFingerprint]
 
-															   
-																 
+				  
+				 
     self.brake_switch = cp.vl["POWERTRAIN_DATA"]['BRAKE_SWITCH'] != 0
 
     if self.CP.carFingerprint in HONDA_BOSCH:
@@ -454,7 +454,7 @@ elif self.CP.carFingerprint == CAR.ACURA_MDX:
         ("ACC_HUD", 10),
         ("BRAKE_COMMAND", 50)
       ]
-									  
+
     bus_cam = 1 if CP.carFingerprint in HONDA_BOSCH and not CP.isPandaBlackDEPRECATED else 2
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, bus_cam)
 
