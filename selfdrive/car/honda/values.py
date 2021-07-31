@@ -71,6 +71,7 @@ class CAR:
   PILOT_2019 = "HONDA PILOT 2019 ELITE"
   RIDGELINE = "HONDA RIDGELINE 2017 BLACK EDITION"
   INSIGHT = "HONDA INSIGHT 2019 TOURING"
+  ACURA_MDX = "ACURA MDX 2018 STANDARD"
 
 # diag message that in some Nidec cars only appear with 1s freq if VIN query is performed
 DIAG_MSGS = {1600: 5, 1601: 8}
