@@ -87,8 +87,8 @@ FINGERPRINTS = {
   }],
   CAR.ACCORD_NIDEC: [{
     57: 3, 145: 8, 316: 8, 342: 6, 344: 8, 380: 8, 398: 3, 400: 4, 401: 8, 420: 8, 422: 8, 426: 8, 427: 3, 432: 7, 464: 8, 476: 4, 487: 4, 490: 8, 506: 8, 507: 1, 520: 8, 521: 8, 542: 7, 545: 4, 597: 8, 660: 8, 661: 4, 773: 7, 777: 8, 780: 8, 800: 8, 804: 8, 808: 8, 829: 5, 871: 8, 882: 2, 884: 8, 891: 8, 892: 8, 918: 7, 923: 2, 927: 8, 929: 8, 983: 8, 985: 3, 1024: 5, 1027: 5, 1029: 8, 1036: 8, 1039: 8, 1057: 5, 1064: 7, 1088: 8, 1089: 8, 1108: 8, 1125: 8, 1296: 3, 1365: 5, 1424: 5, 1600: 5, 1601: 8, 2015: 8  
-  },
-  {
+   }],     
+  CAR.ACURA_MDX: [{
     57: 3, 145: 8, 316: 8, 342: 6, 344: 8, 380: 8, 398: 3, 401: 8, 420: 8, 422: 8, 426: 8, 432: 7, 464: 8, 476: 4, 487: 4, 490: 8, 506: 8, 507: 1, 520: 8, 521: 8, 542: 7, 545: 4, 597: 8, 660: 8, 661: 4, 773: 7, 777: 8, 780: 8, 800: 8, 804: 8, 808: 8, 829: 5, 871: 8, 882: 2, 884: 8, 891: 8, 892: 8, 918: 7, 923: 2, 927: 8, 929: 8, 983: 8, 985: 3, 1024: 5, 1027: 5, 1029: 8, 1036: 8, 1039: 8, 1057: 5, 1064: 7, 1088: 8, 1089: 8, 1108: 8, 1125: 8, 1296: 3, 1365: 5, 1424: 5, 1600: 5, 1601: 8, 2015: 8 ,
   },
   { 
@@ -1071,6 +1071,32 @@ CAR.ACCORD_NIDEC: {
       b'78109-TXM-A030\x00\x00',
     ],
   },
+  CAR.ACURA_MDX: {
+    (Ecu.programmedFuelInjection, 0x18da10f1, None): [
+      b'37805-5BN-3070\000\000',
+    ],
+    (Ecu.fwdRadar, 0x18dab0f1, None): [
+      b'36161-TZ6-A340\000\000',
+    ],
+    (Ecu.gateway, 0x18daeff1, None): [
+      b'38897-TZ5-A110\000\000',
+    ],
+    (Ecu.vsa, 0x18da28f1, None): [
+      b'57114-TZ6-A810\000\000',
+    ],
+    (Ecu.transmission, 0x18da1ef1, None): [
+      b'28101-5DH-A110\000\000',
+    ],
+    (Ecu.shiftByWire, 0x18da0bf1, None): [
+      b'54008-TZ5-A910\000\000',
+    ],
+    (Ecu.combinationMeter, 0x18da60f1, None): [
+      b'78109-TYS-A020\000\000',
+    ],
+    (Ecu.srs, 0x18da53f1, None): [
+      b'77959-TZ5-A220\000\000',
+    ],
+  },
   CAR.HRV: {
     (Ecu.gateway, 0x18daeff1, None): [
       b'38897-T7A-A010\x00\x00',
@@ -1133,6 +1159,7 @@ DBC = {
   CAR.PILOT_2019: dbc_dict('honda_pilot_touring_2017_can_generated', 'acura_ilx_2016_nidec'),
   CAR.RIDGELINE: dbc_dict('honda_ridgeline_black_edition_2017_can_generated', 'acura_ilx_2016_nidec'),
   CAR.INSIGHT: dbc_dict('honda_insight_ex_2019_can_generated', None),
+  CAR.ACURA_MDX: dbc_dict('acura_mdx_2018', 'acura_ilx_2016_nidec'),
 }
 
 STEER_THRESHOLD = {
@@ -1158,6 +1185,7 @@ STEER_THRESHOLD = {
   CAR.PILOT_2019: 1200,
   CAR.RIDGELINE: 1200,
   CAR.INSIGHT: 1200,
+  CAR.ACURA_MDX: 25,  
 }
 
 SPEED_FACTOR = {
@@ -1183,6 +1211,7 @@ SPEED_FACTOR = {
   CAR.PILOT_2019: 1.,
   CAR.RIDGELINE: 1.,
   CAR.INSIGHT: 1.,
+  CAR.ACURA_MDX: 1.,
 }
 
 # msgs sent for steering controller by camera module on can 0.
@@ -1192,4 +1221,4 @@ ECU_FINGERPRINT = {
 }
 
 HONDA_BOSCH = set([CAR.ACCORD, CAR.ACCORD_15, CAR.ACCORDH, CAR.CIVIC_BOSCH, CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_5G, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G])
-HONDA_NIDEC_SERIAL_STEERING = set([CAR.ACCORD_NIDEC])
+HONDA_NIDEC_SERIAL_STEERING = set([CAR.ACCORD_NIDEC, CAR.ACURA_MDX])
