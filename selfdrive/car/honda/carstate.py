@@ -61,7 +61,7 @@ def get_can_signals(CP):
       ("VSA_STATUS", 50),
   ]
 
-  if CP.carFingerprint in (CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC):
+  if CP.carFingerprint in (CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC, CAR.ACURA_MDX_HYBRID):
     checks += [
       ("SCM_FEEDBACK", 25),
       ("SCM_BUTTONS", 50),
@@ -72,7 +72,7 @@ def get_can_signals(CP):
       ("SCM_BUTTONS", 25),
     ]
 
-  if CP.carFingerprint in (CAR.CRV_HYBRID, CAR.CIVIC_BOSCH_DIESEL, CAR.ACURA_RDX_3G):
+  if CP.carFingerprint in (CAR.CRV_HYBRID, CAR.CIVIC_BOSCH_DIESEL, CAR.ACURA_RDX_3G, CAR.ACURA_MDX_HYBRID):
     checks += [
       ("GEARBOX", 50),
     ]
@@ -104,7 +104,7 @@ def get_can_signals(CP):
                 ("CRUISE_SPEED_OFFSET", "CRUISE_PARAMS", 0)]
     checks += [("STANDSTILL", 50)]
 
-    if CP.carFingerprint in (CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC):
+    if CP.carFingerprint in (CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC, CAR.ACURA_MDX_HYBRID):
       checks += [("CRUISE_PARAMS", 10)]
     else:
       checks += [("CRUISE_PARAMS", 50)]
@@ -115,6 +115,8 @@ def get_can_signals(CP):
   elif CP.carFingerprint == CAR.HRV:
     signals += [("DRIVERS_DOOR_OPEN", "SCM_BUTTONS", 1),
                 ("WHEELS_MOVING", "STANDSTILL", 1)]
+  elif CP.carFingerprint == CAR.ACURA_MDX_HYBRID:
+    signals += [("WHEELS_MOVING", "STANDSTILL", 1)]
   else:
     signals += [("DOOR_OPEN_FL", "DOORS_STATUS", 1),
                 ("DOOR_OPEN_FR", "DOORS_STATUS", 1),
@@ -157,6 +159,9 @@ def get_can_signals(CP):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("CAR_GAS", "GAS_PEDAL", 0)]
     checks += [("GAS_PEDAL", 100)]
+  elif CP.carFingerprint == CAR.ACURA_MDX_HYBRID:
+    signals += [("MAIN_ON", "SCM_BUTTONS", 0),
+                ("CAR_GAS", "GAS_PEDAL", 0)] #WHY ISNT THIS HERE?
 
   # add gas interceptor reading if we are using it
   if CP.enableGasInterceptor:
@@ -212,6 +217,8 @@ class CarState(CarStateBase):
       ret.doorOpen = bool(cp.vl["SCM_BUTTONS"]['DRIVERS_DOOR_OPEN'])
     elif self.CP.carFingerprint == CAR.HRV:
       ret.doorOpen = bool(cp.vl["SCM_BUTTONS"]['DRIVERS_DOOR_OPEN'])
+    elif self.CP.carFingerprint == CAR.ACURA_MDX_HYBRID:
+      ret.doorOpen = False
     else:
       ret.standstill = not cp.vl["STANDSTILL"]['WHEELS_MOVING']
       ret.doorOpen = any([cp.vl["DOORS_STATUS"]['DOOR_OPEN_FL'], cp.vl["DOORS_STATUS"]['DOOR_OPEN_FR'],
@@ -280,7 +287,7 @@ class CarState(CarStateBase):
 
     self.pedal_gas = cp.vl["POWERTRAIN_DATA"]['PEDAL_GAS']
     # crv doesn't include cruise control
-    if self.CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.HRV, CAR.ODYSSEY, CAR.ACURA_RDX, CAR.RIDGELINE, CAR.PILOT_2019, CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC):
+    if self.CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.HRV, CAR.ODYSSEY, CAR.ACURA_RDX, CAR.RIDGELINE, CAR.PILOT_2019, CAR.ODYSSEY_CHN, CAR.ACCORD_NIDEC, CAR.ACURA_MDX_HYBRID):
       ret.gas = self.pedal_gas / 256.
     else:
       ret.gas = cp.vl["GAS_PEDAL_2"]['CAR_GAS'] / 256.
